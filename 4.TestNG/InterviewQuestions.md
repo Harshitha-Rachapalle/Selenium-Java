@@ -229,3 +229,118 @@ We can also use regex patterns with the <class> tag to run only selected classes
 This is extremely useful in large frameworks because we don’t have to manually maintain long lists of test classes.
 
 In my project, we used package-level execution and regex to run UI modules, API modules, and smoke suites efficiently in CI pipelines.
+
+### 22. How do you exclude a group from execution?
+
+```
+
+<groups>
+    <run>
+        <exclude name="regression"/>
+    </run>
+</groups>
+```
+
+### 23. Difference between @Parameters and @DataProvider?
+
+@Parameters → Values from XML, good for environment configs.
+
+@DataProvider → Provides multiple sets of data, good for data-driven tests.
+
+### 24.Why do we need testng.xml when we can run tests from IDE?
+
+IDE runs tests individually, but testng.xml allows:
+
+Batch execution of multiple classes.
+
+Grouping tests (Smoke, Regression).
+
+Parameterization (browser, environment).
+
+Parallel execution for faster runs.
+
+
+It’s essential for CI/CD pipelines.
+
+### 25. How do you run only specific methods using testng.xml?
+
+```
+
+<classes>
+    <class name="tests.LoginTests">
+        <methods>
+            <include name="testValidLogin"/>
+        </methods>
+    </class>
+</classes>
+```
+
+### 26. Your suite has 100 tests, but you need to run only Smoke tests on Chrome. How will you configure it?
+
+Create a Smoke group in code:
+```
+
+@Test(groups = {"smoke"})
+public void testLogin() { ... }
+```
+
+**in testng.xml**
+
+```
+
+<suite name="Smoke Suite">
+    <parameter name="browser" value="chrome"/>
+    <test name="Smoke Tests">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.LoginTests"/>
+        </classes>
+    </test>
+</suite>
+```
+
+### 27. What is Data-Driven Testing?
+
+Definition: Running the same test multiple times with different sets of data.
+
+Why: Avoid hardcoding values, improve coverage, and make tests reusable.
+
+Where used: Login tests, form submissions, search functionality, etc.
+
+### 28.  How do you handle dynamic data from Excel in TestNG?
+
+Use Apache POI to read Excel.
+
+Return Object[][] from DataProvider.
+
+Pass it to @Test(dataProvider="excelData").
+
+### 29. Run login tests with 50 different credentials from Excel on Chrome and Firefox in parallel."
+
+Use DataProvider for credentials.
+
+Use @Parameters for browser.
+
+Configure parallel="tests" in testng.xml.
+
+```
+
+<suite name="Parallel Suite" parallel="tests" thread-count="2">
+    <parameter name="browser" value="chrome"/>
+    <test name="Login Chrome">
+        <classes>
+            <class name="tests.LoginTests"/>
+        </classes>
+    </test>
+    <parameter name="browser" value="firefox"/>
+    <test name="Login Firefox">
+        <classes>
+            <class name="tests.LoginTests"/>
+        </classes>
+    </test>
+</suite>
+```
