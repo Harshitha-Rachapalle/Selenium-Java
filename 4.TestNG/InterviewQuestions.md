@@ -363,3 +363,36 @@ softAssert.assertEquals(actualQty, expectedQty);
 // ...
 softAssert.assertAll();
 ```
+
+### 32.Why do we use Listeners in TestNG?
+
+To customize test execution behavior:
+
+Capture screenshots on failure
+
+Generate custom reports
+
+Log test events
+
+### 33.How do you register a listener?
+
+In testng.xml using <listeners> tag.
+
+Or using @Listeners annotation:
+
+```
+
+@Listeners(CustomListener.class)
+public class TestClass { ... }
+```
+
+### 34. Your manager wants a custom report showing only failed tests with screenshots. How do you implement this?"
+
+Implement ITestListener:
+
+Capture screenshot in onTestFailure().
+
+
+Implement IReporter:
+
+Generate HTML report with failed test details and screenshot links.
