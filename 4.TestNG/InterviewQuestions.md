@@ -219,3 +219,13 @@ But during deployment smoke tests, we included only critical flows like Login, C
 We also excluded unstable tests during high-priority releases so the pipeline wouldn't block.
 
 This gave us flexibility, saved execution time, and improved CI reliability.
+
+### 21.Explain regex at package level
+
+TestNG supports executing test cases at the package level using the <packages> tag.
+
+We can also use regex patterns with the <class> tag to run only selected classes inside a package, such as classes ending with Test or starting with Login.
+
+This is extremely useful in large frameworks because we don’t have to manually maintain long lists of test classes.
+
+In my project, we used package-level execution and regex to run UI modules, API modules, and smoke suites efficiently in CI pipelines.
