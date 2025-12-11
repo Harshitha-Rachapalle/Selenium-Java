@@ -344,3 +344,22 @@ Configure parallel="tests" in testng.xml.
     </test>
 </suite>
 ```
+
+### 30.Where do you find TestNG reports after execution?
+
+In test-output folder:
+
+index.html → HTML report.
+
+testng-results.xml → XML report.
+
+### 31. Scenario:
+"You need to validate 10 fields on a checkout page. If one fails, others should still be checked. How do you implement this?"
+
+```
+SoftAssert softAssert = new SoftAssert();
+softAssert.assertEquals(actualPrice, expectedPrice);
+softAssert.assertEquals(actualQty, expectedQty);
+// ...
+softAssert.assertAll();
+```
