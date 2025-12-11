@@ -167,3 +167,55 @@ Ensuring smoke tests run before full regression
 Making CI execution faster by failing early if critical flows broke
 
 This made our pipeline more stable and reduced debugging time.
+
+### 15. What is include/exclude in TestNG?
+
+Include & exclude allow us to **control which test methods or classes should run**. It is configured inside testng.xml.
+
+include runs only specified tests, while exclude prevents mentioned tests from running.
+
+### 16. Why do we need include/exclude in real-time projects?
+
+We rarely run the entire suite every time. Include/exclude helps us run:
+
+Smoke tests
+
+Specific module tests
+
+Critical regression cases
+
+CI-friendly lightweight suites
+
+It also helps temporarily skip failing or unstable tests without touching the code.
+
+### 17.What will happen if both include and exclude are used together?
+
+If both are present, **include has higher precedence**.
+
+That means TestNG will first select included methods, then apply exclusion rules only inside that set.
+
+### 18. Can we use regex in TestNG include/exclude?
+
+Yes, TestNG supports regex.
+
+Example: <include name="test.*"/>
+
+This is extremely useful when we want to run a pattern-based set of tests.
+
+### 19. How do you exclude flaky tests?
+
+In our CI pipeline, we maintain a separate testng file where we list flaky tests under <exclude>.
+
+This allows execution to continue without modifying code and keeps the suite stable.
+
+### 20. Real-time scenario: How did you use include/exclude in your project?
+
+In my previous project, we used include/exclude extensively.
+
+For example, during nightly regression we included all modules.
+
+But during deployment smoke tests, we included only critical flows like Login, Checkout, and Payment.
+
+We also excluded unstable tests during high-priority releases so the pipeline wouldn't block.
+
+This gave us flexibility, saved execution time, and improved CI reliability.
